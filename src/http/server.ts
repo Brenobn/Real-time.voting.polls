@@ -1,8 +1,15 @@
 import fastify from 'fastify'
+import { z } from 'zod'
 
 const app = fastify()
 
-app.get('/hello', () => {
+app.post('/polls', (request) => {
+  const createPollBody = z.object({
+    title: z.string()
+  })
+  
+  const { title } = createPollBody.parse(request.body)
+
   return 'Hello NLW'
 })
 
